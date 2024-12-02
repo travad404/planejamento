@@ -2,13 +2,13 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 
-st.title(Programa de Eficiência Energética Residencial)
-st.text(feito por Guilherme Tyba)
+st.title("Programa de Eficiência Energética Residencial")
+st.text("feito por Guilherme Tyba")
 
-st.header(Opções de Entrada de Dados)
+st.header("Opções de Entrada de Dados")
 
-upload_option = st.radio(Escolha como deseja inserir os dados, 
-                         (Upload de tabela, Inserir manualmente))
+upload_option = st.radio("Escolha como deseja inserir os dados", 
+                         ("Upload de tabela", "Inserir manualmente"))
 
 if upload_option == Upload de tabela
     uploaded_file = st.file_uploader(Envie um arquivo CSV contendo os campos name, power_watts, start_hour, end_hour, quantity, type=[csv])
