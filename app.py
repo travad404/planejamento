@@ -25,7 +25,7 @@ else:
     potencia_watts = st.number_input("Potência (em Watts)", min_value=0, step=10)
     quantidade = st.number_input("Quantidade", min_value=1, step=1)
     inicio = st.number_input("Hora de início (0 a 23)", min_value=0, max_value=23, step=1)
-    fim = st.number_input("Hora de término (0 a 23)", min_value=0, max_value=23, step=1)
+    fim = st.number_input("Hora de término (0 a 23)", min_value=0, max_value=24, step=1)
 
     if st.button("Adicionar"):
         st.session_state["appliances"].append({
