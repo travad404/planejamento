@@ -12,7 +12,7 @@ upload_option = st.radio("Escolha como deseja inserir os dados",
                          ("Upload de tabela", "Inserir manualmente"))
 
 if upload_option == "Upload de tabela":
-    uploaded_file = st.file_uploader("Envie um arquivo CSV contendo os campos name, power_watts, start_hour, end_hour, quantity", type=["csv"])
+    uploaded_file = st.file_uploader("Envie um arquivo CSV contendo os campos nome, potencia_watts, inicio, fim, quantidade", type=["csv"])
     if uploaded_file:
         appliances_df = pd.read_csv(uploaded_file)
         st.subheader("Tabela Carregada")
@@ -21,19 +21,19 @@ else:
     if "appliances" not in st.session_state:
         st.session_state["appliances"] = []
 
-    name = st.text_input("Nome do Eletrodoméstico")
-    power_watts = st.number_input("Potência (em Watts)", min_value=0, step=10)
-    quantity = st.number_input("Quantidade", min_value=1, step=1)
-    start_hour = st.number_input("Hora de início (0 a 23)", min_value=0, max_value=23, step=1)
-    end_hour = st.number_input("Hora de término (0 a 23)", min_value=0, max_value=23, step=1)
+    nome = st.text_input("Nome do Eletrodoméstico")
+    potencia_watts = st.number_input("Potência (em Watts)", min_value=0, step=10)
+    quantidade = st.number_input("Quantidade", min_value=1, step=1)
+    inicio = st.number_input("Hora de início (0 a 23)", min_value=0, max_value=23, step=1)
+    fim = st.number_input("Hora de término (0 a 23)", min_value=0, max_value=23, step=1)
 
     if st.button("Adicionar"):
         st.session_state["appliances"].append({
-            "name": name,
-            "power_watts": power_watts,
-            "quantity": quantity,
-            "start_hour": start_hour,
-            "end_hour": end_hour
+            "nome": nome,
+            "potencia_watts": potencia_watts,
+            "quantidade": quantidade,
+            "inicio": inicio,
+            "fim": fim
         })
 
     appliances_df = pd.DataFrame(st.session_state["appliances"])
@@ -44,14 +44,14 @@ else:
 
 if not appliances_df.empty:
     appliances_df["daily_consumption_kwh"] = appliances_df.apply(
-        lambda row: (row["power_watts"] / 1000) * (row["end_hour"] - row["start_hour"]) * row["quantity"],
+        lambda row: (row["potencia_watts"] / 1000) * (row["fim"] - row["inicio"]) * row["quantidade"],
         axis=1,
     )
     appliances_df["monthly_consumption_kwh"] = appliances_df["daily_consumption_kwh"] * 30
 
     st.header("Consumo Diário por Eletrodoméstico")
     plt.figure(figsize=(10, 6))
-    plt.barh(appliances_df["name"], appliances_df["daily_consumption_kwh"], color="lightgreen")
+    plt.barh(appliances_df["nome"], appliances_df["daily_consumption_kwh"], color="lightgreen")
     plt.xlabel("Consumo (kWh)")
     plt.ylabel("Eletrodoméstico")
     plt.title("Consumo Diário por Eletrodoméstico")
@@ -61,7 +61,7 @@ if not appliances_df.empty:
 
     st.header("Consumo Mensal por Eletrodoméstico")
     plt.figure(figsize=(10, 6))
-    plt.barh(appliances_df["name"], appliances_df["monthly_consumption_kwh"], color="skyblue")
+    plt.barh(appliances_df["nome"], appliances_df["monthly_consumption_kwh"], color="skyblue")
     plt.xlabel("Consumo (kWh)")
     plt.ylabel("Eletrodoméstico")
     plt.title("Consumo Mensal por Eletrodoméstico")
@@ -71,8 +71,8 @@ if not appliances_df.empty:
 
     hourly_consumption = np.zeros(24)
     for _, row in appliances_df.iterrows():
-        for hour in range(int(row["start_hour"]), int(row["end_hour"])):
-            hourly_consumption[hour] += (row["power_watts"] / 1000) * row["quantity"]
+        for hour in range(int(row["inicio"]), int(row["fim"])):
+            hourly_consumption[hour] += (row["potencia_watts"] / 1000) * row["quantidade"]
 
     st.header("Consumo Hora a Hora (kWh)")
     plt.figure(figsize=(12, 6))
