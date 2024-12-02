@@ -1,0 +1,24 @@
+nome,potencia_watts,inicio,fim,quantidade
+Geladeira Duas portas,250,8,16,1
+Geladeira Frost Free,150,8,16,1
+Air fryer,1500,19,20,1
+Panela de pressão elétrica,1000,18,20,1
+Panela de pressão elétrica - Almoço,1000,12,14,1
+Panela Elétrica,400,12,14,1
+Liquidificador,500,12,13,1
+Juicer,400,15,16,1
+Lampada 7w,7,16,24,7
+Lampada 15w,15,0,8,8
+Maquina de lavar,800,16,17,1
+Televisao,90,16,20,1
+Caixa de som,600,16,20,1
+Roteador ,7,0,24,1
+Repetidor de sinal,7,0,24,1
+Purificador d'água,100,8,16,1
+Chuveiro,5000,8,9,1
+Ar condicionado,1500,23,24,1
+Ventilador,70,19,24,1
+Chapinha,130,19,20,1
+Secador,1000,19,20,1
+Carregador de celular 20w,20,20,22,1
+Carregador de celular Fast Charging 120w,120,6,7,1
