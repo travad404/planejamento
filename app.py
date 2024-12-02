@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 st.title("Programa de Eficiência Energética Residencial")
-st.text("Feito por Guilherme Tyba")
+st.text("DEPLOY por Guilherme Tyba - UNESP ROSANA - Link do github:https://github.com/travad404/planejamento/tree/main")
 
 st.header("Opções de Entrada de Dados")
 
