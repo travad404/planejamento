@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
+import numpy as np
 
 st.title("Programa de Eficiência Energética Residencial")
 st.text("Feito por Guilherme Tyba")
@@ -66,6 +67,21 @@ if not appliances_df.empty:
     plt.title("Consumo Mensal por Eletrodoméstico")
     for index, value in enumerate(appliances_df["monthly_consumption_kwh"]):
         plt.text(value, index, f"{value:.2f} kWh", va="center")
+    st.pyplot(plt)
+
+    hourly_consumption = np.zeros(24)
+    for _, row in appliances_df.iterrows():
+        for hour in range(int(row["start_hour"]), int(row["end_hour"])):
+            hourly_consumption[hour] += (row["power_watts"] / 1000) * row["quantity"]
+
+    st.header("Consumo Hora a Hora (kWh)")
+    plt.figure(figsize=(12, 6))
+    plt.bar(range(24), hourly_consumption, color="orange")
+    plt.xlabel("Hora do Dia")
+    plt.ylabel("Consumo (kWh)")
+    plt.title("Consumo de Energia Hora a Hora")
+    for hour, value in enumerate(hourly_consumption):
+        plt.text(hour, value + 0.01, f"{value:.2f}", ha="center")
     st.pyplot(plt)
 
     st.header("Cálculo de Custo")
